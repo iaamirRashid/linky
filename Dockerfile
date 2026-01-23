@@ -2,15 +2,15 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# 1️⃣ copy full monorepo
+# 1️⃣ copy full repo
 COPY . .
 
-# 2️⃣ install pnpm & deps
+# 2️⃣ install pnpm + deps
 RUN npm install -g pnpm
 RUN pnpm install --frozen-lockfile
 
-# 3️⃣ prisma generate (VERY IMPORTANT)
-RUN pnpm --filter @trylinky/prisma prisma generate
+# 3️⃣ prisma generate (DIRECT CLI)
+RUN npx prisma generate --schema=packages/prisma/prisma/schema.prisma
 
 # 4️⃣ build frontend
 RUN pnpm --filter @trylinky/frontend build:frontend
