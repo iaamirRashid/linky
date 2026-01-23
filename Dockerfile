@@ -1,22 +1,22 @@
-FROM node:20-alpine
+FROM node:20-bookworm-slim
 
 WORKDIR /app
 
-# 1️⃣ copy full repo
+# copy full repo
 COPY . .
 
-# 2️⃣ install pnpm + deps
+# install pnpm
 RUN npm install -g pnpm
+
+# install deps
 RUN pnpm install --frozen-lockfile
 
-# 3️⃣ prisma generate (DIRECT CLI)
+# prisma generate (VERY IMPORTANT)
 RUN npx prisma generate --schema=packages/prisma/prisma/schema.prisma
 
-# 4️⃣ build frontend
+# build frontend
 RUN pnpm --filter @trylinky/frontend build:frontend
 
-# 5️⃣ expose port
 EXPOSE 3000
 
-# 6️⃣ start frontend
 CMD ["pnpm", "--filter", "@trylinky/frontend", "start:frontend"]
