@@ -1,20 +1,19 @@
-import { withSentryConfig } from '@sentry/nextjs';
-import type { NextConfig } from 'next';
+const MARKETING_URL = process.env.NEXT_PUBLIC_MARKETING_URL || '';
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@trylinky/ui', '@trylinky/common'],
   rewrites: async () => [
     {
       source: '/',
-      destination: `${process.env.NEXT_PUBLIC_MARKETING_URL}/i`,
+      destination: `${MARKETING_URL}/i`,
     },
     {
       source: '/sitemap.xml',
-      destination: `${process.env.NEXT_PUBLIC_MARKETING_URL}/i/sitemap.xml`,
+      destination: `${MARKETING_URL}/i/sitemap.xml`,
     },
     {
       source: '/i/:path*',
-      destination: `${process.env.NEXT_PUBLIC_MARKETING_URL}/i/:path*`,
+      destination: `${MARKETING_URL}/i/:path*`,
     },
   ],
   redirects: async () => [
@@ -46,35 +45,10 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.dev.glow.as',
-        port: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.glow.as',
-        port: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.dev.lin.ky',
-        port: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.lin.ky',
-        port: '',
-      },
+      { protocol: 'https', hostname: 'cdn.dev.glow.as' },
+      { protocol: 'https', hostname: 'cdn.glow.as' },
+      { protocol: 'https', hostname: 'cdn.dev.lin.ky' },
+      { protocol: 'https', hostname: 'cdn.lin.ky' },
     ],
   },
 };
-
-export default withSentryConfig(nextConfig, {
-  org: 'hyperdusk',
-  project: 'glow',
-  silent: false,
-  sourcemaps: {
-    deleteSourcemapsAfterUpload: true,
-  },
-});
