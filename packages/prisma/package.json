@@ -3,18 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
+
   "scripts": {
-    "prisma:generate": "prisma generate --no-hints",
+    "prisma:generate": "prisma generate --schema=packages/prisma/prisma/schema.prisma",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:seed": "prisma db seed"
   },
+
   "dependencies": {
-    "@prisma/adapter-pg": "^7.0.1",
-    "@prisma/client": "^7.0.0",
+    "@prisma/adapter-pg": "7.3.0",
+    "@prisma/client": "7.3.0",
+    "prisma": "7.3.0",
     "@sindresorhus/slugify": "^2.2.1",
-    "prisma": "^7.0.0",
     "typescript": "^5"
   },
+
   "exports": {
     ".": "./index.ts",
     "./types": "./types.ts"
