@@ -10,7 +10,7 @@
     "lint": "turbo lint",
     "dev": "turbo dev",
 
-    "start": "turbo run start",
+    "start": "pnpm --filter @trylinky/frontend start:frontend -- -p $PORT -H 0.0.0.0",
 
     "dev:migrate": "dotenvx run -f .env.local -- prisma migrate dev --config ./packages/prisma/prisma.config.ts",
     "dev:seed": "dotenvx run -f .env.local -- tsx ./packages/prisma/prisma/seed.ts",
